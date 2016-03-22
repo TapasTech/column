@@ -25,9 +25,9 @@ class Dataset < ApplicationRecord
       sanitized_join_attribute = sanitize(join_attribute)
       sanitized_attribute = sanitize(attribute)
       sanitized_compare_attribute = sanitize(compare_attribute)
-      "dataset_rows.dataset_attributes->#{sanitized_join_attribute} AS dimense,
-            dataset_rows.dataset_attributes->#{sanitized_attribute} AS attribute,
-            compare_rows.dataset_attributes->#{sanitized_compare_attribute} AS compare_attribute"
+      "dataset_rows.dataset_attributes->#{sanitized_join_attribute} AS dimense, \
+      dataset_rows.dataset_attributes->#{sanitized_attribute} AS attribute, \
+      compare_rows.dataset_attributes->#{sanitized_compare_attribute} AS compare_attribute"
     end
   end
 end
