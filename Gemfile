@@ -19,12 +19,10 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'goldiloader'
 ## Enum Field
 gem 'simple_enum'
+## File Uploading
+gem 'carrierwave'
 
 # Data querying and processing
-## GraphQL
-gem 'graphql'
-gem 'graphql-mutable_type'
-gem 'graphql-libgraphqlparser', require: 'graphql/libgraphqlparser'
 ## Pagination
 gem 'kaminari'
 ## Object Serializer

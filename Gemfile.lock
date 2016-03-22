@@ -42,9 +42,13 @@ GEM
     ast (2.2.0)
     bcrypt (3.1.11)
     benchmark-ips (2.5.0)
-    blankslate (3.1.3)
     builder (3.2.2)
     byebug (8.2.2)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     choice (0.2.0)
     codeclimate-test-reporter (0.5.0)
       simplecov (>= 0.7.1, < 1.0.0)
@@ -69,12 +73,6 @@ GEM
     goldiloader (0.0.10)
       activerecord (>= 3.2, < 5.1)
       activesupport (>= 3.2, < 5.1)
-    graphql (0.11.1)
-      parslet (~> 1.6)
-    graphql-libgraphqlparser (0.2.3)
-      graphql (~> 0.11)
-    graphql-mutable_type (0.0.2)
-      graphql (~> 0.11.0)
     i18n (0.7.0)
     json (1.8.3)
     kaminari (0.16.3)
@@ -108,8 +106,6 @@ GEM
     open4 (1.3.4)
     parser (2.3.0.6)
       ast (~> 2.2)
-    parslet (1.7.1)
-      blankslate (>= 2.0, <= 4.0)
     pg (0.18.4)
     powerpack (0.1.1)
     pry (0.10.3)
@@ -223,14 +219,12 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   benchmark-ips
   byebug
+  carrierwave
   codeclimate-test-reporter
   config
   database_cleaner
   factory_girl_rails (~> 4.0)
   goldiloader
-  graphql
-  graphql-libgraphqlparser
-  graphql-mutable_type
   kaminari
   listen (~> 3.0.5)
   lograge

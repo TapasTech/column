@@ -5,7 +5,7 @@ class DatasetRow < ApplicationRecord
   validate :attributes_exists
 
   protected
-  
+
   def attributes_exists
     dataset.column_names.each do |column_name|
       check_attribute(column_name)
