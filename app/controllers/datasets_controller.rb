@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class DatasetsController < ApplicationController
-  before_action :set_dataset, only: [:show]
+  before_action :set_dataset, only: [:show, :update]
 
   # GET /datasets
   def index
@@ -14,8 +14,11 @@ class DatasetsController < ApplicationController
     render json: @dataset
   end
 
-  # POST /datasets
-  def create
+  # PUT/PATCH /dataset/1
+  def update
+    @dataset.update!(dataset_params)
+
+    render json: @dataset
   end
 
   private
@@ -27,6 +30,6 @@ class DatasetsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def dataset_params
-    params.fetch(:dataset, {}).permit(:title, :file)
+    params.fetch(:dataset, {}).permit(:title)
   end
 end

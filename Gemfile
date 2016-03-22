@@ -17,6 +17,8 @@ gem 'pg', '~> 0.18'
 gem 'bcrypt', '~> 3.1.7'
 ## Automatically Eager Load
 gem 'goldiloader'
+## Cache Counter
+gem 'counter_culture'
 ## Enum Field
 gem 'simple_enum'
 ## File Uploading
