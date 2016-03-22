@@ -23,6 +23,8 @@ gem 'simple_enum'
 gem 'carrierwave'
 
 # Data querying and processing
+## API Serializer
+gem 'active_model_serializers', git: 'git@github.com:rails-api/active_model_serializers.git'
 ## Pagination
 gem 'kaminari'
 ## Object Serializer

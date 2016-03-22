@@ -1,0 +1,4 @@
+---
+carrierwave:
+  paths: 
+    csv: uploads/temp
