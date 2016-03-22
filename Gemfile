@@ -53,6 +53,9 @@ group :development, :test, :staging do
 
   # Documenting
   gem 'rails-erd'
+
+  # Benchmarking
+  gem 'benchmark-ips', require: 'benchmark/ips'
 end
 
 group :development, :staging do

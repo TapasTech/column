@@ -3,6 +3,23 @@ class Dataset < ApplicationRecord
   has_many :dataset_columns
   has_many :dataset_rows
 
+  attr_accessor :column_types
+
+  def column_type_of(key)
+    column_types[key]
+  end
+
+  def column_names
+    column_types.keys
+  end
+
+  def column_types
+    @column_types ||=
+      Hash[
+        dataset_columns.map { |c| [c.name, c.column_type] }
+      ]
+  end
+
   class << self
     def join_dataset(dataset, compare_dataset, join_attribute:, compare_join_attribute:nil, attribute:, compare_attribute:)
       DatasetRow.joins(sanitize_join(join_attribute, compare_join_attribute || join_attribute))
@@ -16,7 +33,7 @@ class Dataset < ApplicationRecord
     def sanitize_join(join_attribute, compare_join_attribute)
       sanitized_join_attribute = sanitize(join_attribute)
       sanitized_compare_join_attribute = sanitize(compare_join_attribute)
-      "INNER JOIN dataset_rows AS compare_rows ON \
+      "FULL OUTER JOIN dataset_rows AS compare_rows ON \
       (dataset_rows.dataset_attributes->#{sanitized_join_attribute}) ~ \
       (compare_rows.dataset_attributes->#{sanitized_compare_join_attribute})"
     end
