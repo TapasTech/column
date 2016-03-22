@@ -3,6 +3,7 @@ class ProcessCSVJob < ApplicationJob
   queue_as :default
 
   def perform(csv_file_id)
-    # Do something later
+    @csv_file = CSVFile.find(csv_file_id)
+    CSVParser.parse(csv_file)
   end
 end

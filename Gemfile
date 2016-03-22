@@ -39,6 +39,9 @@ gem 'rack-cors'
 ## Use Puma as the app server
 gem 'puma'
 
+# Data Processing
+gem 'smarter_csv'
+
 group :development, :test, :staging do
   # Debugging
   gem 'byebug'

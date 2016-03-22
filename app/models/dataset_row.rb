@@ -2,17 +2,17 @@
 class DatasetRow < ApplicationRecord
   belongs_to :dataset, -> { includes(:dataset_columns) }
 
-  validate :attributes_exists
+  # validate :attributes_exists
 
-  protected
+  # protected
 
-  def attributes_exists
-    dataset.column_names.each do |column_name|
-      check_attribute(column_name)
-    end
-  end
+  # def attributes_exists
+  #   dataset.column_names.each do |column_name|
+  #     check_attribute(column_name)
+  #   end
+  # end
 
-  def check_attribute(column)
-    errors.add(column, "can't be blank") if dataset_attributes[column].nil?
-  end
+  # def check_attribute(column)
+  #   errors.add(column, "can't be blank") if dataset_attributes[column].nil?
+  # end
 end

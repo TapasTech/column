@@ -8,7 +8,7 @@ class CSVUploader < CarrierWave::Uploader::Base
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     File.join(Settings.carrierwave.paths.store,
-              "#{model.class.to_s.underscore}/#{mounted_as}/#{Time.zone.today}")
+              "#{model.class.to_s.underscore}/#{mounted_as}/#{model.created_at.to_date}")
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -22,7 +22,8 @@ class CSVUploader < CarrierWave::Uploader::Base
   end
 
   # Override the filename of the uploaded files:
+  # The file is meant to be one2one with a file record model
   def filename
-    "#{SecureRandom.uuid}.csv"
+    "#{Digest::SHA256.hexdigest(read)}.csv"
   end
 end
