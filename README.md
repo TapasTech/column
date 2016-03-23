@@ -10,6 +10,7 @@ An online Data Matching Tool.
 
 * *nix based system
 * postgresql-client: ~> 9.4
+* libicu
 
 ### Configuration
 

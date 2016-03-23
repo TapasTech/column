@@ -40,7 +40,10 @@ gem 'rack-cors'
 gem 'puma'
 
 # Data Processing
+## CSV Parser
 gem 'smarter_csv'
+## Charset Guess
+gem 'charlock_holmes'
 
 group :development, :test, :staging do
   # Debugging

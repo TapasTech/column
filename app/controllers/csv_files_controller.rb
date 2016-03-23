@@ -13,7 +13,7 @@ class CSVFilesController < ApplicationController
 
     ProcessCSVJob.perform_later(@csv_file.id)
 
-    render json: @csv_file, status: :created
+    render json: @csv_file, status: :created, location: @csv_file
   end
 
   def destroy

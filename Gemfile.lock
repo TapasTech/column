@@ -61,6 +61,7 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    charlock_holmes (0.7.3)
     choice (0.2.0)
     codeclimate-test-reporter (0.5.0)
       simplecov (>= 0.7.1, < 1.0.0)
@@ -238,6 +239,7 @@ DEPENDENCIES
   benchmark-ips
   byebug
   carrierwave
+  charlock_holmes
   codeclimate-test-reporter
   config
   counter_culture
