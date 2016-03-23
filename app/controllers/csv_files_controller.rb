@@ -17,6 +17,7 @@ class CSVFilesController < ApplicationController
   end
 
   def destroy
+    @csv_file
   end
 
   private

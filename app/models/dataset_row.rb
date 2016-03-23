@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class DatasetRow < ApplicationRecord
   belongs_to :dataset, -> { includes(:dataset_columns) }
+  counter_culture :dataset
 
   # validate :attributes_exists
 
