@@ -9,6 +9,8 @@ gem 'config'
 gem 'lograge'
 # I18n
 gem 'rails-i18n'
+# API Doc
+gem 'apipie-rails'
 
 # Modeling
 ## Use postgresql as the database for Active Record

@@ -50,6 +50,8 @@ GEM
     after_commit_action (1.0.1)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
+    apipie-rails (0.3.6)
+      json
     arel (7.0.0)
     ast (2.2.0)
     bcrypt (3.1.11)
@@ -235,6 +237,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers!
+  apipie-rails
   bcrypt (~> 3.1.7)
   benchmark-ips
   byebug

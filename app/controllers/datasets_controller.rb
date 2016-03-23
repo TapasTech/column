@@ -2,19 +2,26 @@
 class DatasetsController < ApplicationController
   before_action :set_dataset, only: [:show, :update]
 
-  # GET /datasets
+  api :GET, '/datasets'
+  param :page, Integer
+  param :per, Integer
   def index
     @datasets = Dataset.page(params[:page]).per(params[:per])
 
     render json: @datasets, each_serializer: DatasetPreviewSerializer, meta: pagination_dict(@datasets)
   end
 
-  # GET /datasets/1
+  api :GET, '/datasets/:id'
+  param :id, Integer, required: true
   def show
     render json: @dataset
   end
 
-  # PUT/PATCH /dataset/1
+  api :PUT, '/dataset/:id'
+  param :id, Integer
+  param :dataset, Hash do
+    param :title, String
+  end
   def update
     @dataset.update!(dataset_params)
 

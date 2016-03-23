@@ -2,6 +2,17 @@
 class DataJoinsController < ApplicationController
   before_action :set_datasets, only: [:create]
 
+  api :POST, '/data_joins'
+  param :dataset, Hash, '表1' do
+    param :id, Integer, 'ID'
+    param :join_attribute, String, '对标字段'
+    param :attribute, String, '对比字段'
+  end
+  param :compare, Hash, '表2' do
+    param :id, Integer, 'ID'
+    param :join_attribute, String, '对标字段'
+    param :attribute, String, '对比字段'
+  end
   def create
     @data_joins =
       Rails.cache.fetch("joins/#{@dataset.id}-#{@compare.id}") do

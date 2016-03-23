@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 class CSVParser
+  include CSVParser::FileOperation
   include CSVParser::TypeCheck
+
   attr_accessor :columns, :rows
 
   def initialize(csv_file)
@@ -34,23 +36,7 @@ class CSVParser
 
   protected
 
-  attr_accessor :csv_file, :dataset, :encoding
-
-  DETECTING_BUFFER_SIZE = 1.kilobytes
-
-  def encoding
-    @encoding ||=
-      File.open(csv_file.csv.current_path, 'r') do |csv|
-        CharlockHolmes::EncodingDetector.detect(csv.read(DETECTING_BUFFER_SIZE))[:encoding]
-      end
-  end
-
-  def open_csv(&_block)
-    SmarterCSV.process(csv_file.csv.current_path, chunk_size: 10,
-                                                  convert_values_to_numeric: true,
-                                                  file_encoding: encoding,
-                       &_block)
-  end
+  attr_accessor :csv_file, :dataset
 
   # Save Dataset
   def init_dataset
