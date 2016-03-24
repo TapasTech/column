@@ -5,7 +5,7 @@ class CSVParser
     attr_accessor :encoding
 
     DETECTING_BUFFER_SIZE = 1.kilobytes
-
+    CHUNK_SIZE = 20
     def encoding
       @encoding ||=
         File.open(csv_file.csv.current_path, 'r') do |csv|
@@ -14,7 +14,7 @@ class CSVParser
     end
 
     def open_csv(&block)
-      SmarterCSV.process(csv_file.csv.current_path, chunk_size: 10,
+      SmarterCSV.process(csv_file.csv.current_path, chunk_size: CHUNK_SIZE,
                                                     convert_values_to_numeric: true,
                                                     file_encoding: encoding,
                          &block)

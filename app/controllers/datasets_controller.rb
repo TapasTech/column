@@ -3,22 +3,25 @@ class DatasetsController < ApplicationController
   before_action :set_dataset, only: [:show, :update]
 
   api :GET, '/datasets'
-  param :page, Integer
-  param :per, Integer
+  param :page, String
+  param :per, String
   def index
-    @datasets = Dataset.page(params[:page]).per(params[:per])
+    @datasets = Dataset.where('title is not NULL')
+                       .page(params[:page]).per(params[:per])
 
-    render json: @datasets, each_serializer: DatasetPreviewSerializer, meta: pagination_dict(@datasets)
+    render json: @datasets,
+           each_serializer: DatasetPreviewSerializer,
+           meta: pagination_dict(@datasets)
   end
 
   api :GET, '/datasets/:id'
-  param :id, Integer, required: true
+  param :id, String, required: true
   def show
     render json: @dataset
   end
 
   api :PUT, '/dataset/:id'
-  param :id, Integer
+  param :id, String
   param :dataset, Hash do
     param :title, String
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160324034951) do
+ActiveRecord::Schema.define(version: 20160324064934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(version: 20160324034951) do
     t.datetime "updated_at",                     null: false
     t.integer  "dataset_rows_count", default: 0, null: false
   end
+
+  add_index "datasets", ["title"], name: "index_datasets_on_title", using: :btree
 
   add_foreign_key "csv_files", "datasets"
   add_foreign_key "dataset_columns", "datasets"
