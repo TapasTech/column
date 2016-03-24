@@ -5,5 +5,7 @@ class ProcessCSVJob < ApplicationJob
   def perform(csv_file_id)
     @csv_file = CSVFile.find(csv_file_id)
     CSVParser.parse(@csv_file)
+  rescue => e
+    @csv_file.update!(error_message: "#{e.class.name}: #{e.message}", status: :invalid)
   end
 end

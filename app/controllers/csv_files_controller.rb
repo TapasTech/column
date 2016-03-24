@@ -18,7 +18,7 @@ class CSVFilesController < ApplicationController
     # TODO: perform_later
     ProcessCSVJob.perform_now(@csv_file.id)
 
-    render json: @csv_file, status: :created, location: @csv_file
+    render json: @csv_file.reload, status: :created, location: @csv_file
   end
 
   def destroy
