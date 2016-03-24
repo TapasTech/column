@@ -15,7 +15,8 @@ class CSVFilesController < ApplicationController
     @csv_file.csv = params[:file]
     @csv_file.save!
 
-    ProcessCSVJob.perform_later(@csv_file.id)
+    # TODO: perform_later
+    ProcessCSVJob.perform_now(@csv_file.id)
 
     render json: @csv_file, status: :created, location: @csv_file
   end
