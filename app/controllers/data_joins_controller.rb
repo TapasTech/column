@@ -3,12 +3,12 @@ class DataJoinsController < ApplicationController
   before_action :set_datasets, only: [:create]
 
   api :POST, '/data_joins'
-  param :dataset, Hash, '表1' do
+  param :dataset, ActionController::Parameters, '表1' do
     param :id, String, 'ID'
     param :join_attribute, String, '对标字段'
     param :attribute, String, '对比字段'
   end
-  param :compare, Hash, '表2' do
+  param :compare, ActionController::Parameters, '表2' do
     param :id, String, 'ID'
     param :join_attribute, String, '对标字段'
     param :attribute, String, '对比字段'

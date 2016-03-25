@@ -26,6 +26,7 @@ class Dataset < ApplicationRecord
                 .where('dataset_rows.dataset_id = ?', dataset.id)
                 .where('compare_rows.dataset_id = ?', compare_dataset.id)
                 .select(sanitize_select(join_attribute, attribute, compare_attribute))
+                .order('dimense ASC')
     end
 
     protected
