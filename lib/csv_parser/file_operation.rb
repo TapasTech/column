@@ -5,26 +5,55 @@ class CSVParser
     attr_accessor :encoding, :delimiter
 
     DETECTING_BUFFER_SIZE = 1.kilobytes
+    DETECTING_LINE_LENGTH = 50
     CHUNK_SIZE = 20
+    DELIMITERS = [',', ';', "\t"].freeze
 
     def encoding
-      @encoding ||=
-        File.open(csv_file.csv.current_path, 'r') do |csv|
-          CharlockHolmes::EncodingDetector.detect(csv.read(DETECTING_BUFFER_SIZE))[:encoding]
-        end
+      @encoding ||= detect_encoding
     end
 
     def delimiter
-      @delimiter ||= /[\,\;\t]/
+      @delimiter ||= detect_delimiter
     end
 
     def open_csv(&block)
-      SmarterCSV.process(csv_file.csv.current_path, chunk_size: CHUNK_SIZE,
-                                                    convert_values_to_numeric: true,
-                                                    file_encoding: encoding,
-                                                    col_sep: delimiter,
-                                                    row_sep: :auto,
+      SmarterCSV.process(path, chunk_size: CHUNK_SIZE,
+                               convert_values_to_numeric: true,
+                               file_encoding: encoding,
+                               col_sep: delimiter,
+                               row_sep: :auto,
                          &block)
+    end
+
+    def path
+      csv_file.csv.current_path
+    end
+
+    private
+
+    def detect_encoding
+      File.open(path, 'r') do |csv|
+        CharlockHolmes::EncodingDetector.detect(csv.read(DETECTING_BUFFER_SIZE))[:encoding]
+      end
+    end
+
+    def detect_delimiter
+      line_counts = DELIMITERS.map { |delimiter| delimiter_line_count(delimiter) }
+      DELIMITERS[line_counts.index(line_counts.max)]
+    end
+
+    def delimiter_line_count(delimiter)
+      File.open(path, "r:#{encoding}") do |f|
+        csv = CSV.new(f, col_sep: delimiter, row_sep: :auto)
+        line_count_of_csv(csv)
+      end
+    end
+
+    def line_count_of_csv(csv)
+      Array.new(DETECTING_LINE_LENGTH)
+           .map { csv&.readline&.count }
+           .reduce { |a, e| (e&.!= a) ? 0 : a } # check if has same colum count => same: count; not: 0
     end
   end
 end
