@@ -6,7 +6,7 @@ class DatasetPreviewSerializer < ActiveModel::Serializer
 
   def dataset_columns
     # Use in-memory sort instead of database order sort
-    # since database order sort cannot take advantage of includes
+    # since database order sort cannot take advantage of ActiveRecord#includes
     # and will produce n+1 query
     object.dataset_columns.sort_by(&:id)
   end
