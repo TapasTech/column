@@ -18,7 +18,6 @@ module UserAuthenticatable
       @http_authorization ||= params_auth_token ||
                               request.headers['Http-Authorization'] ||
                               request.env['HTTP_AUTHORIZATION']
-                              
     end
 
     def params_auth_token
