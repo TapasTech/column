@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 class Dataset < ApplicationRecord
+  belongs_to :user, required: false
   has_many :dataset_columns, dependent: :destroy
   has_many :dataset_rows, dependent: :destroy
 
