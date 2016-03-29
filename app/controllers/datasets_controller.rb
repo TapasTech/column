@@ -22,7 +22,7 @@ class DatasetsController < ApplicationController
 
   api :PUT, '/dataset/:id'
   param :id, String
-  param :dataset, ActionController::Parameters do
+  param :dataset, Hash do
     param :title, String
   end
   def update

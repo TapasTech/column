@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class ApplicationController < ActionController::API
   include UserAuthenticatable
+  include ActiveRecordErrorHandlable
 
   def pagination_dict(object)
     {

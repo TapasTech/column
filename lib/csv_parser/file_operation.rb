@@ -23,6 +23,7 @@ class CSVParser
                                file_encoding: encoding,
                                col_sep: delimiter,
                                row_sep: :auto,
+                               quote_char: '"',
                          &block)
     end
 
@@ -45,7 +46,7 @@ class CSVParser
 
     def delimiter_line_count(delimiter)
       File.open(path, "r:#{encoding}") do |f|
-        csv = CSV.new(f, col_sep: delimiter, row_sep: :auto)
+        csv = CSV.new(f, col_sep: delimiter, row_sep: :auto, quote_char: '"')
         line_count_of_csv(csv)
       end
     end
@@ -54,6 +55,8 @@ class CSVParser
       Array.new(DETECTING_LINE_LENGTH)
            .map { csv&.readline&.count }
            .reduce { |a, e| (e&.!= a) ? 0 : a } # check if has same colum count => same: count; not: 0
+    rescue CSV::MalformedCSVError
+      0
     end
   end
 end

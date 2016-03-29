@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 class AuthTokensController < ApplicationController
-  before_action :authenticate_user!, only: [:update]
+  before_action :authenticate_user!, only: [:show, :update]
 
   api :POST, '/auth_tokens'
-  param :user, ActionController::Parameters, '用户' do
+  param :user, Hash do
     param :email, String, 'E-mail', required: true
     param :password, String, '密码', required: true
   end
@@ -15,12 +15,18 @@ class AuthTokensController < ApplicationController
     render json: @user, status: :created, meta: {auth_token: auth_token}
   end
 
+  api :GET, '/auth_tokens/:auth_token'
+  param :auth_token, String, '认证token', required: true
+  def show
+    render json: current_user, meta: {auth_token: http_authorization}
+  end
+
   api :PUT, '/auth_tokens/:auth_token'
-  param :auth_tokens, String, '要替换的认证token', required: true
+  param :auth_token, String, '认证token', required: true
   def update
     @user = current_user
     auth_token = AuthToken.new(@user.id, @user.password_digest).generate
-    render json: @user, status: :created, meta: {auth_token: auth_token}
+    render json: @user, meta: {auth_token: auth_token}
   end
 
   private

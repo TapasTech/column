@@ -34,3 +34,5 @@ ds.dataset_rows.create(dataset_attributes: {month: '09', index: '3127.99'})
 ds.dataset_rows.create(dataset_attributes: {month: '10', index: '3342.48'})
 ds.dataset_rows.create(dataset_attributes: {month: '11', index: '3561.20'})
 ds.dataset_rows.create(dataset_attributes: {month: '12', index: '3546.04'})
+
+User.create!(email: 'adam@sayindata.com', password: '12345678')

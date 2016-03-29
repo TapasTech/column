@@ -22,6 +22,10 @@ Style/Encoding:
 Style/SignalException:
   EnforcedStyle: semantic
 
+# Options
+Style/ParameterLists:
+  Max: 6
+
 # do not check length of a migration
 Metrics/MethodLength:
   Exclude:
