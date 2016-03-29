@@ -4,12 +4,12 @@ class DataJoinsController < ApplicationController
 
   api :POST, '/data_joins'
   param :dataset, Hash, '表1' do
-    param :id, String, 'ID'
+    param :id, Integer, 'ID'
     param :join_attribute, String, '对标字段'
     param :attribute, String, '对比字段'
   end
   param :compare, Hash, '表2' do
-    param :id, String, 'ID'
+    param :id, Integer, 'ID'
     param :join_attribute, String, '对标字段'
     param :attribute, String, '对比字段'
   end
