@@ -15,11 +15,12 @@ class DataJoinsController < ApplicationController
   end
   def create
     @data_joins =
-      Rails.cache.fetch("joins/#{dataset_params.to_json}&#{compare_params.to_json}") do
+      Rails.cache.fetch("joins/#{dataset_params.to_json}/#{compare_params.to_json}") do
         Dataset.join_dataset(@dataset, @compare, join_attribute: dataset_params[:join_attribute],
                                                  compare_join_attribute: compare_params[:join_attribute],
                                                  attribute: dataset_params[:attribute],
                                                  compare_attribute: compare_params[:attribute])
+               .to_a
       end
 
     render json: DataJoin.wrap(*@data_joins)
