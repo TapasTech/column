@@ -3,6 +3,7 @@
 class DatasetPreviewSerializer < ActiveModel::Serializer
   attributes :id, :title, :dataset_rows_count
   has_many :dataset_columns
+  has_one :user
 
   def dataset_columns
     # Use in-memory sort instead of database order sort

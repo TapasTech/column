@@ -3,6 +3,7 @@ class DatasetSerializer < ActiveModel::Serializer
   attributes :id, :title
   has_many :dataset_columns
   has_many :dataset_rows
+  has_one :user
 
   def dataset_columns
     object.dataset_columns.order(id: :asc)

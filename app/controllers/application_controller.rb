@@ -2,6 +2,7 @@
 class ApplicationController < ActionController::API
   include UserAuthenticatable
   include ActiveRecordErrorHandlable
+  include APIParamsCheckable
 
   def pagination_dict(object)
     {
