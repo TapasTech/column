@@ -15,9 +15,15 @@ module UserAuthenticatable
     end
 
     def http_authorization
-      @http_authorization ||= params['auth_token'] ||
+      @http_authorization ||= params_auth_token ||
                               request.headers['Http-Authorization'] ||
                               request.env['HTTP_AUTHORIZATION']
+                              
+    end
+
+    def params_auth_token
+      auth_token = params['auth_token']
+      auth_token.is_a?(String) ? auth_token : nil
     end
 
     def current_user
