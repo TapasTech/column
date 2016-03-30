@@ -41,6 +41,8 @@ class CSVParser
   # Save Dataset
   def init_dataset
     @dataset = (csv_file.dataset || csv_file.create_dataset!)
+    @dataset.dataset_columns.destroy_all
+    @dataset.dataset_rows.destroy_all
   end
 
   def fill_columns
@@ -55,9 +57,10 @@ class CSVParser
 
   def fill_rows
     open_csv do |chunk|
-      chunk.each do |row|
-        dataset.dataset_rows.create!(dataset_attributes: row)
+      rows = chunk.each.map do |row|
+        {dataset_attributes: row}
       end
+      dataset.dataset_rows.create!(rows)
     end
   end
 

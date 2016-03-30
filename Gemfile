@@ -11,6 +11,8 @@ gem 'lograge'
 gem 'rails-i18n'
 # API Doc
 gem 'apipie-rails'
+# Caching
+gem 'dalli'
 
 # Modeling
 ## Use postgresql as the database for Active Record

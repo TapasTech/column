@@ -3,12 +3,17 @@ class SearchesController < ApplicationController
   before_action :set_query_strategy_and_serializer, only: [:show]
 
   api :GET, '/searches/:type'
-  param :type, String, required: true
-  param :query, String, required: true
+  param :type, String, "Query type, avaliable values:\n- dataset: 数据集", required: true
+  param :query, String, 'Query string', required: true
+  param :page, String
+  param :per, String
   def show
     @results = @strategy.search(params)
+                        .page(params[:page]).per(params[:per])
 
-    render json: @results, each_serializer: @serializer
+    render json: @results,
+           each_serializer: @serializer,
+           meta: pagination_dict(@results)
   end
 
   private

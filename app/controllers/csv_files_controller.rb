@@ -3,7 +3,7 @@ class CSVFilesController < ApplicationController
   before_action :set_csv_file, only: [:show, :destroy]
 
   api :GET, '/csv_files/:id'
-  param :id, Integer, required: true
+  param :id, String, required: true
   def show
     render json: @csv_file
   end
@@ -15,9 +15,10 @@ class CSVFilesController < ApplicationController
     @csv_file.csv = params[:file]
     @csv_file.save!
 
-    ProcessCSVJob.perform_later(@csv_file.id)
+    # TODO: perform_later
+    ProcessCSVJob.perform_now(@csv_file.id)
 
-    render json: @csv_file, status: :created, location: @csv_file
+    render json: @csv_file.reload, status: :created, location: @csv_file
   end
 
   def destroy

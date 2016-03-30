@@ -76,6 +76,7 @@ GEM
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
       after_commit_action (~> 1.0.0)
+    dalli (2.7.6)
     database_cleaner (1.5.1)
     deep_merge (1.0.1)
     diff-lcs (1.2.5)
@@ -246,6 +247,7 @@ DEPENDENCIES
   codeclimate-test-reporter
   config
   counter_culture
+  dalli
   database_cleaner
   factory_girl_rails (~> 4.0)
   goldiloader
