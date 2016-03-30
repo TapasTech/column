@@ -2,6 +2,8 @@
 class Dataset < ApplicationRecord
   has_many :dataset_columns, dependent: :destroy
   has_many :dataset_rows, dependent: :destroy
+  has_one :csv_file
+  has_one :user, through: :csv_file
 
   attr_accessor :column_types
 

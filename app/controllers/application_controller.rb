@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 class ApplicationController < ActionController::API
+  include UserAuthenticatable
+  include ActiveRecordErrorHandlable
+  include APIParamsCheckable
+
   def pagination_dict(object)
     {
       current_page: object.current_page,

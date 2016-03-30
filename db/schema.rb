@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160324064934) do
+ActiveRecord::Schema.define(version: 20160329034654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,10 +25,12 @@ ActiveRecord::Schema.define(version: 20160324064934) do
     t.datetime "updated_at",                        null: false
     t.text     "csv"
     t.text     "error_message"
+    t.integer  "user_id"
   end
 
   add_index "csv_files", ["dataset_id"], name: "index_csv_files_on_dataset_id", using: :btree
   add_index "csv_files", ["status"], name: "index_csv_files_on_status", using: :btree
+  add_index "csv_files", ["user_id"], name: "index_csv_files_on_user_id", using: :btree
 
   create_table "dataset_columns", force: :cascade do |t|
     t.text     "name"
@@ -61,7 +63,17 @@ ActiveRecord::Schema.define(version: 20160324064934) do
 
   add_index "datasets", ["title"], name: "index_datasets_on_title", using: :btree
 
+  create_table "users", force: :cascade do |t|
+    t.text     "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+
   add_foreign_key "csv_files", "datasets"
+  add_foreign_key "csv_files", "users"
   add_foreign_key "dataset_columns", "datasets"
   add_foreign_key "dataset_rows", "datasets"
 end

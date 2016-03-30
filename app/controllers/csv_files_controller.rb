@@ -11,7 +11,8 @@ class CSVFilesController < ApplicationController
   api :POST, '/csv_files'
   param :file, ::ActionDispatch::Http::UploadedFile, required: true
   def create
-    @csv_file = CSVFile.new
+    @csv_file =
+      current_user.present? ? current_user.csv_files.build : CSVFile.new
     @csv_file.csv = params[:file]
     @csv_file.save!
 

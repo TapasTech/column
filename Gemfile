@@ -49,6 +49,9 @@ gem 'smarter_csv'
 ## Charset Guess
 gem 'charlock_holmes'
 
+# APM
+gem 'newrelic_rpm'
+
 group :development, :test, :staging do
   # Debugging
   gem 'byebug'
