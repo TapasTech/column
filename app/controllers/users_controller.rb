@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class UsersController < ApplicationController
-  api :POST, '/users'
+  api :POST, '/users', '注册用户'
   param :user, Hash do
     param :email, String, 'E-mail', required: true
     param :password, String, '密码', required: true
