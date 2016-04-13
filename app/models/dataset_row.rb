@@ -3,6 +3,11 @@ class DatasetRow < ApplicationRecord
   belongs_to :dataset, -> { includes(:dataset_columns) }
   counter_culture :dataset
 
+  # read only!
+  def readonly?
+    new_record? ? false : true
+  end
+
   # validate :attributes_exists
 
   # protected

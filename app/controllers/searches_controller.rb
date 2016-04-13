@@ -2,7 +2,7 @@
 class SearchesController < ApplicationController
   before_action :set_query_strategy_and_serializer, only: [:show]
 
-  api :GET, '/searches/:type'
+  api :GET, '/searches/:type', '查找'
   param :type, String, "Query type, avaliable values:\n- dataset: 数据集", required: true
   param :query, String, 'Query string', required: true
   param :page, String

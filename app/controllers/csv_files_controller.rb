@@ -2,13 +2,13 @@
 class CSVFilesController < ApplicationController
   before_action :set_csv_file, only: [:show, :destroy]
 
-  api :GET, '/csv_files/:id'
+  api :GET, '/csv_files/:id', '查看CSV文件'
   param :id, String, required: true
   def show
     render json: @csv_file
   end
 
-  api :POST, '/csv_files'
+  api :POST, '/csv_files', '上传CSV文件'
   param :file, ::ActionDispatch::Http::UploadedFile, required: true
   def create
     @csv_file =

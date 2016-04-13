@@ -8,7 +8,7 @@ class CSVUploader < CarrierWave::Uploader::Base
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     File.join(Settings.carrierwave.paths.store,
-              "#{model.class.to_s.underscore}/#{mounted_as}/#{model.created_at.to_date}")
+              "#{model.class.to_s.underscore}/#{model.created_at.to_date}")
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

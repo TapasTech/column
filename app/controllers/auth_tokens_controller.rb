@@ -2,7 +2,7 @@
 class AuthTokensController < ApplicationController
   before_action :authenticate_user!, only: [:show, :update]
 
-  api :POST, '/auth_tokens'
+  api :POST, '/auth_tokens', '登录获取令牌'
   param :user, Hash do
     param :email, String, 'E-mail', required: true
     param :password, String, '密码', required: true
@@ -15,13 +15,13 @@ class AuthTokensController < ApplicationController
     render json: @user, status: :created, meta: {auth_token: auth_token}
   end
 
-  api :GET, '/auth_tokens/:auth_token'
+  api :GET, '/auth_tokens/:auth_token', '查看令牌的用户信息'
   param :auth_token, String, '认证token', required: true
   def show
     render json: current_user, meta: {auth_token: http_authorization}
   end
 
-  api :PUT, '/auth_tokens/:auth_token'
+  api :PUT, '/auth_tokens/:auth_token', '更新令牌'
   param :auth_token, String, '认证token', required: true
   def update
     @user = current_user

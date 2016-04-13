@@ -2,7 +2,7 @@
 class DatasetsController < ApplicationController
   before_action :set_dataset, only: [:show, :update]
 
-  api :GET, '/datasets'
+  api :GET, '/datasets', '查看云库数据集'
   param :page, String
   param :per, String
   def index
@@ -14,13 +14,13 @@ class DatasetsController < ApplicationController
            meta: pagination_dict(@datasets)
   end
 
-  api :GET, '/datasets/:id'
+  api :GET, '/datasets/:id', '查看数据集'
   param :id, String, required: true
   def show
     render json: @dataset
   end
 
-  api :PUT, '/dataset/:id'
+  api :PUT, '/dataset/:id', '更新数据集信息'
   param :id, String
   param :dataset, Hash do
     param :title, String

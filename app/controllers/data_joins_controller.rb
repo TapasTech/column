@@ -2,7 +2,7 @@
 class DataJoinsController < ApplicationController
   before_action :set_datasets, only: [:create]
 
-  api :POST, '/data_joins'
+  api :POST, '/data_joins', '交叉对比数据'
   param :dataset, Hash, '表1' do
     param :id, Integer, 'ID'
     param :join_attribute, String, '对标字段'
