@@ -9,7 +9,6 @@ class SearchesController < ApplicationController
   param :per, String
   def show
     @results = @strategy.search(params)
-                        .page(params[:page]).per(params[:per])
 
     render json: @results,
            each_serializer: @serializer,

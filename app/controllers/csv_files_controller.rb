@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class CSVFilesController < ApplicationController
-  before_action :set_csv_file, only: [:show, :destroy]
+  before_action :set_csv_file, only: [:show, :destroy, :download]
 
   api :GET, '/csv_files/:id', '查看CSV文件'
   param :id, String, required: true
@@ -20,6 +20,17 @@ class CSVFilesController < ApplicationController
     ProcessCSVJob.perform_now(@csv_file.id)
 
     render json: @csv_file.reload, status: :created, location: @csv_file
+  end
+
+  def download
+    path, type = case params[:format]
+                 when 'csv'
+                   [@csv_file.path, 'text/csv']
+                 when 'xls'
+                   [@csv_file.convert_to_excel_file.path, 'application/excel']
+                 end
+
+    send_file path, filename: "#{@csv_file.title}.#{params[:format]}", type: type
   end
 
   def destroy

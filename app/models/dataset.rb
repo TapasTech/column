@@ -22,6 +22,12 @@ class Dataset < ApplicationRecord
       ]
   end
 
+  def attach_tag(tag)
+    tags << tag.tag_str
+    tags = tags.uniq! || []
+    tags
+  end
+
   class << self
     def join_dataset(dataset, compare_dataset, join_attribute:, compare_join_attribute:nil, attribute:, compare_attribute:)
       DatasetRow.joins(sanitize_join(join_attribute, compare_join_attribute || join_attribute))

@@ -46,6 +46,9 @@ gem 'puma'
 # Data Processing
 ## CSV Parser
 gem 'smarter_csv'
+## Generate excel
+gem 'spreadsheet'
+
 ## Charset Guess
 gem 'charlock_holmes'
 
