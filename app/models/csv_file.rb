@@ -31,7 +31,7 @@ class CSVFile < ApplicationRecord
       headers = dataset.dataset_columns.map(&:name)
       csv << headers
       dataset.dataset_rows.each do |row|
-        csv << headers.map{|h| row.dataset_attributes[h]}
+        csv << headers.map { |h| row.dataset_attributes[h] }
       end
     end
     csv_data
@@ -48,8 +48,8 @@ class CSVFile < ApplicationRecord
     sheet.row(0).replace headers
 
     dataset.dataset_rows.each_with_index do |row, i|
-      row_data = headers.map{|h| row.dataset_attributes[h]}
-      sheet.row(i+1).replace(row_data)
+      row_data = headers.map { |h| row.dataset_attributes[h] }
+      sheet.row(i + 1).replace(row_data)
     end
     generate_excel_file excel
   end

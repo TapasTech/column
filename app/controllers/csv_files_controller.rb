@@ -41,12 +41,14 @@ class CSVFilesController < ApplicationController
     encoding = CSVParser.new(@csv_file).encoding
 
     case format
-      when 'csv'
-        data, type =[@csv_file.csv_data, "text/csv; charset=#{encoding}"]
-        send_data data, filename: "#{@csv_file.filename}.#{format}", type: type
-      when 'xls'
-        path, type = [@csv_file.convert_to_excel_file.path, "application/excel; charset=#{encoding}"]
-        send_file path, filename: "#{@csv_file.filename}.#{format}", type: type
+    when 'csv'
+      data = @csv_file.csv_data
+      type = "text/csv; charset=#{encoding}"
+      send_data data, filename: "#{@csv_file.filename}.#{format}", type: type
+    when 'xls'
+      path = @csv_file.convert_to_excel_file.path
+      type = "application/excel; charset=#{encoding}"
+      send_file path, filename: "#{@csv_file.filename}.#{format}", type: type
     end
   end
 end
