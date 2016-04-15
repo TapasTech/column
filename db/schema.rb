@@ -11,14 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329034654) do
+ActiveRecord::Schema.define(version: 20160415034716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
 
   create_table "csv_files", force: :cascade do |t|
-    t.text     "path"
     t.integer  "dataset_id"
     t.text     "status",        default: "created", null: false
     t.datetime "created_at",                        null: false
@@ -26,6 +25,7 @@ ActiveRecord::Schema.define(version: 20160329034654) do
     t.text     "csv"
     t.text     "error_message"
     t.integer  "user_id"
+    t.string   "filename"
   end
 
   add_index "csv_files", ["dataset_id"], name: "index_csv_files_on_dataset_id", using: :btree
@@ -56,12 +56,26 @@ ActiveRecord::Schema.define(version: 20160329034654) do
 
   create_table "datasets", force: :cascade do |t|
     t.text     "title"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "dataset_rows_count", default: 0, null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "dataset_rows_count", default: 0,  null: false
+    t.string   "tags",               default: [],              array: true
   end
 
+  add_index "datasets", ["tags"], name: "index_datasets_on_tags", using: :gin
   add_index "datasets", ["title"], name: "index_datasets_on_title", using: :btree
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "key"
+    t.string   "value"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "tags", ["key"], name: "index_tags_on_key", using: :btree
+  add_index "tags", ["name"], name: "index_tags_on_name", using: :btree
+  add_index "tags", ["value"], name: "index_tags_on_value", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.text     "email"
