@@ -11,36 +11,53 @@ class CSVFile < ApplicationRecord
   as_enum :status, [:created, :processed, :invalid], map: :string,
                                                      source: :status,
                                                      accessor: :whiny
-  delegate :title, to: :dataset
 
-  # mapping path attribute to csv current_path
-  module PathWithCSV
-    def path
-      super || csv.current_path
+  module FilenameWithCSV
+    def filename
+      super || csv.filename.split('.').first
     end
   end
 
-  prepend PathWithCSV
+  prepend FilenameWithCSV
+
+  attr_reader :path
+
+  def path
+    @path ||= csv.current_path
+  end
+
+  def csv_data
+    csv_data = CSV.generate do |csv|
+      headers = dataset.dataset_columns.map(&:name)
+      csv << headers
+      dataset.dataset_rows.each do |row|
+        csv << headers.map{|h| row.dataset_attributes[h]}
+      end
+    end
+    csv_data
+  end
 
   def convert_to_excel_file
     excel = Spreadsheet::Workbook.new
-    sheet = excel.create_worksheet name: title
+    sheet = excel.create_worksheet name: filename
 
     header_format = Spreadsheet::Format.new(weight: :bold, horizontal_align: :center, locked: true)
     sheet.row(0).default_format = header_format
-    encoding = CSVParser.new(self).encoding
 
-    CSV.foreach(path, encoding: encoding).with_index do |row, i|
-      sheet.row(i).replace(row)
+    headers = dataset.dataset_columns.map(&:name)
+    sheet.row(0).replace headers
+
+    dataset.dataset_rows.each_with_index do |row, i|
+      row_data = headers.map{|h| row.dataset_attributes[h]}
+      sheet.row(i+1).replace(row_data)
     end
-
     generate_excel_file excel
   end
 
   private
 
   def generate_excel_file(excel)
-    file = Tempfile.new(title)
+    file = Tempfile.new(filename)
 
     begin
       excel.write file.path

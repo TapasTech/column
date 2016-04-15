@@ -11,14 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160413061113) do
+ActiveRecord::Schema.define(version: 20160415034716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
 
   create_table "csv_files", force: :cascade do |t|
-    t.text     "path"
     t.integer  "dataset_id"
     t.text     "status",        default: "created", null: false
     t.datetime "created_at",                        null: false
@@ -26,6 +25,7 @@ ActiveRecord::Schema.define(version: 20160413061113) do
     t.text     "csv"
     t.text     "error_message"
     t.integer  "user_id"
+    t.string   "filename"
   end
 
   add_index "csv_files", ["dataset_id"], name: "index_csv_files_on_dataset_id", using: :btree

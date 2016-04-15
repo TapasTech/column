@@ -4,6 +4,8 @@ class ApplicationController < ActionController::API
   include ActiveRecordErrorHandlable
   include APIParamsCheckable
 
+  include ActionController::MimeResponds
+
   def pagination_dict(object)
     {
       current_page: object.current_page,

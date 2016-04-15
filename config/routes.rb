@@ -7,9 +7,7 @@ Rails.application.routes.draw do
     resources :datasets, only: [:index], controller: :user_datasets
   end
   resources :datasets, only: [:index, :show, :create]
-  resources :csv_files, only: [:show, :create] do
-    get '_download' => 'csv_files#download', on: :member
-  end
+  resources :csv_files, only: [:show, :create]
   resources :data_joins, only: [:create]
   resources :searches, param: :type, only: [:show]
   # mount ActionCable.server => '/cable'
