@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160415034716) do
+ActiveRecord::Schema.define(version: 20160418060323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20160415034716) do
     t.datetime "updated_at",                      null: false
     t.integer  "dataset_rows_count", default: 0,  null: false
     t.string   "tags",               default: [],              array: true
+    t.string   "description"
   end
 
   add_index "datasets", ["tags"], name: "index_datasets_on_tags", using: :gin

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class DatasetSerializer < ActiveModel::Serializer
-  attributes :id, :title
+  attributes :id, :title, :description
   has_many :dataset_columns
   has_many :dataset_rows
   has_one :user

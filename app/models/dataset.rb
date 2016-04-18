@@ -23,9 +23,9 @@ class Dataset < ApplicationRecord
   end
 
   def attach_tag(tag)
-    tags << tag.tag_str
-    tags = tags.uniq! || []
-    tags
+    self.tags << tag.tag_str
+    self.tags = self.tags.uniq
+    save
   end
 
   class << self
