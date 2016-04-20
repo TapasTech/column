@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # Serialize Dataset in list
 class DatasetPreviewSerializer < ActiveModel::Serializer
-  attributes :id, :title, :dataset_rows_count
+  attributes :id, :title, :dataset_rows_count, :description, :tags
   has_many :dataset_columns
   has_one :user
 

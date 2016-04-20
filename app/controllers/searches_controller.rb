@@ -5,7 +5,7 @@ class SearchesController < ApplicationController
   api :GET, '/searches/:type', '查找'
   param :type, String, "Query type, avaliable values:\n- dataset: 数据集", required: true
   param :query, String, 'Query string'
-  param :tags, Array,  'Tags string array'
+  param :tags, String,  'Tags string array'
   param :page, String
   param :per, String
   def show
